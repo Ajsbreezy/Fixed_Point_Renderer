@@ -16,8 +16,7 @@ int main() {
     SDL_Init(SDL_INIT_VIDEO); // Initialize SDL2 window
 
     window = SDL_CreateWindow("FIXED POINT RENDERER", SDL_WINDOWPOS_UNDEFINED,
-        SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN| SDL_WINDOW_RESIZABLE
-        | SDL_WINDOW_BORDERLESS); // creating window
+        SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN| SDL_WINDOW_RESIZABLE); // creating window
     surface = SDL_GetWindowSurface(window); // surface of the window initialized
     
     // Lets create a Framebuffer Object
@@ -34,13 +33,14 @@ int main() {
         if (SDL_MUSTLOCK(surface)) SDL_LockSurface(surface); // lock and unlock to avoid weird errors
         fb.reset_screen();
         if (SDL_MUSTLOCK(surface)) SDL_UnlockSurface(surface);
-        
-        for (int i = 0; i < WIDTH; i++) {
-            for (int j = 0; j < HEIGHT; j++) {
-                test ++;
-                fb.set_pixel(test, i ,j);
+
+        // Test draw square with R and B range from 0 - 255
+        fb.set_pixel(100, 100, 100, 0, 100);
+        for (int y = 0; y < 255; y++) {
+            for (int x = 0; x < 255; x++) {
+              fb.set_pixel(x, y, x, 0, y);
             }
-        }
+          }
 
         SDL_UpdateWindowSurface(window);
     }
@@ -48,3 +48,4 @@ int main() {
     SDL_Quit();
     return 0;
 }
+
