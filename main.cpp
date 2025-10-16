@@ -23,7 +23,6 @@ int main() {
     // Lets create a Framebuffer Object
     Framebuffer fb(surface,WIDTH, HEIGHT);
     uint32_t test = 0;
-
     // main loop
     SDL_Event event;
     while (!quit) {
@@ -35,6 +34,13 @@ int main() {
         if (SDL_MUSTLOCK(surface)) SDL_LockSurface(surface); // lock and unlock to avoid weird errors
         fb.reset_screen();
         if (SDL_MUSTLOCK(surface)) SDL_UnlockSurface(surface);
+        
+        for (int i = 0; i < WIDTH; i++) {
+            for (int j = 0; j < HEIGHT; j++) {
+                test ++;
+                fb.set_pixel(test, i ,j);
+            }
+        }
 
         SDL_UpdateWindowSurface(window);
     }
